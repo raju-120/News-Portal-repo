@@ -1,10 +1,12 @@
-const loadNews = async () => {
+
+/* Category Id Work Start */
+const loadCategoryNews = async () => {
     const url =  `https://openapi.programming-hero.com/api/news/categories`;
     const res = await fetch(url);
     const data = await res.json();
-    displayNews(data.data.news_category);
+    displayCategoryNews(data.data.news_category);
 }
-const displayNews = dailyNews =>{
+const displayCategoryNews = dailyNews =>{
     
     //console.log(dailyNews);
 
@@ -17,15 +19,37 @@ const displayNews = dailyNews =>{
         
         newsUl.innerHTML = `
         
-        <a class="nav-link"  href="#">${news.category_name}</a>
+        <a class="nav-link"  href="#" onclick="loadNewsCategory('${news.category_id}')">${news.category_name}</a>
         `;
         newsContainer.appendChild(newsUl);
     
     });
 };
 
+              //Category Modal
+/* 
+const loadCategoryNewsModal = async news_id =>{
+
+    const url =  `https://openapi.programming-hero.com/api/news/category/{category_id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displayCategoryNewsModal(data.data)
+}
+
+const displayCategoryNewsModal = news =>{
+    console.log(news);
+    const modalTitle = document.getElementById('newsModalLabel');
+}
+ */
+
+/* Category Id Work Finished */
+
+
+
+/* News Id Work Finished */
+
 const loadNewsCard = async () => {
-    const url =  `https://openapi.programming-hero.com/api/news/category/01`;
+    const url=`https://openapi.programming-hero.com/api/news/category/08`;
     const res = await fetch(url);
     const data = await res.json();
     displayNewsCard(data.data); 
@@ -53,22 +77,35 @@ const displayNewsCard = newsCards =>{
             
             <div class= "d-flex justify-content-between">
                 <div class = "d-flex">
+                   
                    <image src="${newsCard.author.img}" style="width: 50px; height: 50px; border-radius: 25px; margin-right: 5px;">
-                   <span><p>${newsCard.author.name}</p>
-                   <p>${newsCard.author.published_date}</p></span>
+                   <span>
+                       <p>${newsCard.author.name  ? newsCard.author.name  : 'No Name Found'}</p>
+                       <p>${newsCard.author.published_date ? newsCard.author.published_date: 'No Published Date Found'}</p>
+                   </span>
                 </div>
-                <p class="card-text"><small  class="text-muted"><i class="fa-solid fa-eye"> ${newsCard.total_view}</i></small></p>
+                <p class="card-text"><small  class="text-muted"><i class="fa-solid fa-eye"> ${newsCard.total_view ? newsCard.total_view: 'No View Found'}</i></small></p>
                 <p class="card-text"><small class="text-muted"><i class="fa-solid fa-star"> ${newsCard.rating.number} </i> </small></p>
-                <p class="card-text"> <i class="fa-sharp fa-solid fa-arrow-right"></i> </p>
-            </div>
+
+
+                
+                <button onclick="loadNewsDetails('${newsCard.category_id}')" class= "m-3 p-2 btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsModal">Details <i class="fa-sharp fa-solid fa-arrow-right"></i></button>
+                
+                </div>
 
         </div>
         </div>
     </div>
-     `;
+    `;
         newsCardContent.appendChild(newsDiv);
     });
 }
 
+
+
+ 
+
+
+loadCategoryNews();
 loadNewsCard();
-loadNews();
+//loadNewsDetails();
