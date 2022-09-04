@@ -3,10 +3,11 @@ const loadNews = async () => {
     const res = await fetch(url);
     const data = await res.json();
     displayNews(data.data.news_category);
-}/* 
-<a class="nav-link"  href="#">Home</a> */
+}
 const displayNews = dailyNews =>{
     
+    //console.log(dailyNews);
+
     const newsContainer = document.getElementById('news-container');
     dailyNews.forEach(news => {
         const newsUl = document.createElement('nav');
@@ -31,12 +32,12 @@ const loadNewsCard = async () => {
 }
 
 const displayNewsCard = newsCards =>{
+
     console.log(newsCards);
+
     const newsCardContent =  document.getElementById('news-card-content');
     newsCards.forEach(newsCard => {
-       /*  <div class="card mb-3" style="max-width: 1600px;"></div>
-       <image  src="${}">
-       */
+       
         const newsDiv = document.createElement('div');
         newsDiv.classList.add('card');
         newsDiv.classList.add('mb-3');
