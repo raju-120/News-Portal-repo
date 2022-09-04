@@ -43,7 +43,7 @@ const displayNewsCard = newsCards =>{
         newsDiv.innerHTML = `
     <div class="row g-0">
         <div class="col-md-4">
-           <img src="${newsCard.image_url}" class="img-fluid rounded-start" alt="...">
+           <img src="${newsCard.image_url}" style= "margin: 5px; padding: 10px" class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-md-8">
         <div class="card-body">
@@ -51,13 +51,14 @@ const displayNewsCard = newsCards =>{
             <p class="card-text"><small class="text-muted">${newsCard.details}<small></p>
             
             <div class= "d-flex justify-content-between">
-                <div>
-                   <image src="">
-                   <p>${newsCard.author.name}</p>
-                   <p>${newsCard.author.published_date}</p>
+                <div class = "d-flex">
+                   <image src="${newsCard.author.img}" style="width: 50px; height: 50px; border-radius: 25px; margin-right: 5px;">
+                   <span><p>${newsCard.author.name}</p>
+                   <p>${newsCard.author.published_date}</p></span>
                 </div>
                 <p class="card-text"><small  class="text-muted"><i class="fa-solid fa-eye"> ${newsCard.total_view}</i></small></p>
-                <p class="card-text"><small class="text-muted"><i class="fa-regular fa-star">${newsCard.rating.number} </i> </small></p>
+                <p class="card-text"><small class="text-muted"><i class="fa-solid fa-star"> ${newsCard.rating.number} </i> </small></p>
+                <p class="card-text"> <i class="fa-sharp fa-solid fa-arrow-right"></i> </p>
             </div>
 
         </div>
