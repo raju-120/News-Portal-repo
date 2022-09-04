@@ -73,7 +73,8 @@ const displayNewsCard = newsCards =>{
         <div class="col-md-8">
         <div class="card-body">
             <h5 class="card-title">${newsCard.title}</h5>
-            <p class="card-text"><small class="text-muted">${newsCard.details}<small></p>
+
+            <p class="card-text" style= "white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 1600px; max-height: 1600px;"><small class="text-muted" >${newsCard.details}<small></p>
             
             <div class= "d-flex justify-content-between">
                 <div class = "d-flex">
