@@ -24,7 +24,7 @@ const displayCategoryNews = dailyNews =>{
         newsContainer.appendChild(newsUl);
     
     });
-};
+}; 
 const loadNewsCategory = async category_id => {
     const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`;
     const res = await fetch(url);
@@ -44,7 +44,7 @@ const displayNewsCategory = ids => {
     `;
     
 }
-
+ 
 
 /* News Id Work Finished */
 
@@ -102,15 +102,32 @@ const displayNewsCard = newsCards =>{
     });
 }
 
+/* 
+
+*/
+
 const loadNewsAllDetails = async news_id =>{
     const url =`https://openapi.programming-hero.com/api/news/${news_id}`;
     const res =await fetch(url);
     const data = await res.json();
-    console.log(data.data[0]);
+    displayNewsAllDetails(data.data[0]);
+}
+
+
+
+const displayNewsAllDetails = news_ids =>{
+    console.log(news_ids);
+    const modalNewsAll = document.getElementById('newsModalLabel');
+    modalNewsAll.innerText = news_ids.title;
+    const newsAllDetails = document.getElementById('news-details');
+    newsAllDetails.innerHTML = `
+    <p>${ids.details}</p>
+    <p><i class="fa-solid fa-eye">${ids.total_view}</i></p>
+    `;
 }
 
 
 loadCategoryNews();
 loadNewsCategory();
 loadNewsCard();
-/*loadNewsAllDetails(); */
+loadNewsAllDetails(); 

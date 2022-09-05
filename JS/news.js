@@ -1,36 +1,53 @@
 
-
-              //Category Modal
-/* 
-const loadNewsCategory = async category_id =>{
-
-    const url =  `https://openapi.programming-hero.com/api/news/category/${category_id}`;
+/* Category Id Work Start */
+const loadCategoryNews = async () => {
+    const url =  `https://openapi.programming-hero.com/api/news/categories`;
     const res = await fetch(url);
     const data = await res.json();
-    displayCategoryNewsModal(data.data)
+    displayCategoryNews(data.data.news_category);
+}
+const displayCategoryNews = dailyNews =>{
+    
+    //console.log(dailyNews);
+
+    const newsContainer = document.getElementById('news-container');
+    dailyNews.forEach(news => {
+        const newsUl = document.createElement('nav');
+        newsUl.classList.add("nav");
+        newsUl.classList.add("nav-pills");
+        newsUl.classList.add("nav-fill");
+        
+        newsUl.innerHTML = `
+        
+        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#newsModal" href="#" onclick="loadNewsCategory('${news.category_id}')">${news.category_name}</a>
+        `;
+        newsContainer.appendChild(newsUl);
+    
+    });
+}; 
+const loadNewsCategory = async category_id => {
+    const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    displayNewsCategory(data.data[0]);
 }
 
+const displayNewsCategory = ids => {
+    //console.log(ids);
 
-const displayCategoryNewsModal = id =>{
-    console.log(id);
-    const modalcategoryTitle = document.getElementById('newsModalLabel');
-    modalcategoryTitle.innerText = id.title;
-    const newsDetails = document.getElementById('news-details');
-    newsDetails.innerHTML = `
-    <p>${id.author.name}</p>
-    <p>${id.details}</p>
+    const modalNewsCategory = document.getElementById('newsModalLabel');
+    modalNewsCategory.innerText = ids.title;
+    const categoryNewsDetails = document.getElementById('news-details');
+    categoryNewsDetails.innerHTML = `
+    <p>${ids.details}</p>
+    <p><i class="fa-solid fa-eye">${ids.total_view}</i></p>
     `;
+    
 }
- 
- */
-/* Category Id Work Finished */
 
-
-
-/* News Id Work Finished */
 
 const loadNewsCard = async () => {
-    const url=`https://openapi.programming-hero.com/api/news/category/08`;
+    const url=`https://openapi.programming-hero.com/api/news/0282e0e58a5c404fbd15261f11c2ab6a`;
     const res = await fetch(url);
     const data = await res.json();
     displayNewsCard(data.data); 
@@ -38,7 +55,7 @@ const loadNewsCard = async () => {
 
 const displayNewsCard = newsCards =>{
 
-    console.log(newsCards);
+    //console.log(newsCards);
 
     const newsCardContent =  document.getElementById('news-card-content');
     newsCards.forEach(newsCard => {
@@ -83,23 +100,8 @@ const displayNewsCard = newsCards =>{
     });
 }
 
-/* 
-const loadNewsAllDetails = async news_id =>{
-    const url =`https://openapi.programming-hero.com/api/news/${news_id}`;
-    const res =await fetch(url);
-    const data = await res.json();
-    displayNewsAllDetails(data.data);
-}
-const displayNewsAllDetails = newsAll =>{
-    console.log(newsAll);
-    const modalTitle = document.getElementById('newsModalLabel');
-    modalTitle.innerText = newsAll.name;
-    const newsDetails = document.getElementById('news-details');
-    newsDetails.innerHTML = `
-    <p>${newsAll.author.name}</p>
-    <p>${newsAll.details}</p>
-    `;
 
-} */
-
- 
+loadCategoryNews();
+//loadNewsCategory();
+loadNewsCard();
+loadNewsAllDetails(); 
