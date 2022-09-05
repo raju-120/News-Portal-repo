@@ -19,31 +19,31 @@ const displayCategoryNews = dailyNews =>{
         
         newsUl.innerHTML = `
         
-        <a class="nav-link"  href="#" onclick="loadNewsCategory('${news.category_id}')">${news.category_name}</a>
+        <a class="nav-link" data-bs-toggle="modal" data-bs-target="#newsModal" href="#" onclick="loadNewsCategory('${news.category_id}')">${news.category_name}</a>
         `;
         newsContainer.appendChild(newsUl);
     
     });
 };
-
-              //Category Modal
-/* 
-const loadCategoryNewsModal = async news_id =>{
-
-    const url =  `https://openapi.programming-hero.com/api/news/category/{category_id}`;
+const loadNewsCategory = async category_id => {
+    const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`;
     const res = await fetch(url);
     const data = await res.json();
-    displayCategoryNewsModal(data.data)
+    displayNewsCategory(data.data[0]);
 }
 
-const displayCategoryNewsModal = news =>{
-    console.log(news);
-    const modalTitle = document.getElementById('newsModalLabel');
+const displayNewsCategory = ids => {
+    //console.log(ids);
+
+    const modalNewsCategory = document.getElementById('newsModalLabel');
+    modalNewsCategory.innerText = ids.title;
+    const categoryNewsDetails = document.getElementById('news-details');
+    categoryNewsDetails.innerHTML = `
+    <p>${ids.details}</p>
+    <p><i class="fa-solid fa-eye">${ids.total_view}</i></p>
+    `;
+    
 }
- */
-
-/* Category Id Work Finished */
-
 
 
 /* News Id Work Finished */
@@ -57,7 +57,7 @@ const loadNewsCard = async () => {
 
 const displayNewsCard = newsCards =>{
 
-    console.log(newsCards);
+    //console.log(newsCards);
 
     const newsCardContent =  document.getElementById('news-card-content');
     newsCards.forEach(newsCard => {
@@ -90,7 +90,7 @@ const displayNewsCard = newsCards =>{
 
 
                 
-                <button onclick="loadNewsDetails('${newsCard.category_id}')" class= "m-3 p-2 btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsModal">Details <i class="fa-sharp fa-solid fa-arrow-right"></i></button>
+                <button onclick="loadNewsAllDetails('${newsCard.category_id}')" class= "m-3 p-2 btn btn-primary" data-bs-toggle="modal" data-bs-target="#newsModal">Details <i class="fa-sharp fa-solid fa-arrow-right"></i></button>
                 
                 </div>
 
@@ -102,11 +102,15 @@ const displayNewsCard = newsCards =>{
     });
 }
 
-
-
- 
+const loadNewsAllDetails = async news_id =>{
+    const url =`https://openapi.programming-hero.com/api/news/${news_id}`;
+    const res =await fetch(url);
+    const data = await res.json();
+    console.log(data.data[0]);
+}
 
 
 loadCategoryNews();
+loadNewsCategory();
 loadNewsCard();
-//loadNewsDetails();
+/*loadNewsAllDetails(); */
